@@ -1,2 +1,0 @@
-# NodeJSSession
-Que ondas
