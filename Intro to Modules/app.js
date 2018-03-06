@@ -1,14 +1,18 @@
-var http = require('http'),
-hello = require('./custom-hello.js');
+var http = require('http');
 
-http.createServer(function(request, response){
-response.writeHead(200, {'Content-Type': 'text/html'});
-response.write("Dogs are running ");
-setTimeout(function(){ // Running time example
-    response.write(" Dog is going weldl");
-    hello("ese men");
-    response.end();
-}, 400);
-}).listen(8080);
+var message = "Here a new one for you";
+var options = {
+    host: 'localhost',
+    port: 43683,
+    path: '/',
+    method: 'POST'
+}
 
-console.log("Running in port 8080");
+var request = http.request(options, (response) =>{
+    response.on('data', (data) => {
+        console.log(data); // Logs response body
+    })
+})
+
+request.write("asdf" + message); // begins request 
+request.end();
