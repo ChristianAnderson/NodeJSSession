@@ -1,0 +1,69 @@
+<html>
+    <title>Node Test</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous">
+    </script>   
+    <script src="/css/bootstrap.min.css"></script>
+    <script src="/css/bootstrap.min.css.map"></script>
+
+    
+    <style>
+        div#container{
+            background-color:skyblue;
+            height:300px;
+            width:300px;
+            margin:0 auto;
+        }
+        div#form{
+            background-color:white;
+            height:300px;
+            width:300px;
+            margin:0 auto;
+        }
+    </style>
+    <body id="nodeBody">
+        <div id="container" class="messages-container">
+            <p>Connected...</p>
+        </div>
+        
+        <div id="form">
+            <form id="chat_form">
+                <textarea name="message" id="chat_input" cols="36" rows="10"></textarea>
+                <input type="submit" value="Go">
+            </form>
+        </div>
+        <script>
+                var socket = io.connect('http://localhost:8080');
+                
+                $('form#chat_form').submit(function(e){
+                    e.preventDefault()
+                    // debugger;
+                    var message = $('#chat_input').val();
+                    console.log(message);
+                    //Emit the messages event on the server
+                    
+                    socket.emit('messages', message);
+                    $('#chat_input').val('');
+                })
+        
+                // socket.on('messages', function(data){
+                //     alert(data.hello);
+                // });
+
+                socket.on('messages', function(data){
+                    displayMessage(data);
+                    // alert(data);
+                    console.log(data);
+                });
+
+                var displayMessage = function(message){
+                    $('.messages-container').append('<div>' + message +  '</div>');   
+                };
+                
+            
+            </script>
+    </body>
+</html>

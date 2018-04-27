@@ -1,18 +1,4 @@
-var http = require('http');
+var makeRequest = require('./make_request');
 
-var message = "Here a new one for you";
-var options = {
-    host: 'localhost',
-    port: 43683,
-    path: '/',
-    method: 'POST'
-}
-
-var request = http.request(options, (response) =>{
-    response.on('data', (data) => {
-        console.log(data); // Logs response body
-    })
-})
-
-request.write("asdf" + message); // begins request 
-request.end();
+makeRequest("Here's a new one for you");
+makeRequest("Hellow, this is a dog :v");
